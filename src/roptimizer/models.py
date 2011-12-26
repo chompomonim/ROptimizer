@@ -89,7 +89,8 @@ class Income(Base):
 def populate():
     session = DBSession()
     today = datetime.datetime.utcnow()
-    default = Period('Default', today, today)
+    month = datetime.timedelta(days=30)
+    default = Period('Default', today, today+month)
     session.add(default)
 
     #Default expences
