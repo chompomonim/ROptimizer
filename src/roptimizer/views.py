@@ -29,7 +29,9 @@ def app_view(request):
     period = dbsession.query(Period).first()
     to_spend = period.to_spend()
     money_left = period.money_left()
+    days_left = (period.end-datetime.datetime.utcnow()).days
 
     return {'period': period,
             'money_left': money_left,
-            'to_spend': to_spend}
+            'to_spend': to_spend,
+            'days_left': days_left}
