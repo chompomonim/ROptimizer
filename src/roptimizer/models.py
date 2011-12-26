@@ -24,7 +24,7 @@ Base = declarative_base()
 
 class Period(Base):
     """Period for savings. E.g. month or business trip."""
-    __tablename__ = 'period'
+    __tablename__ = 'periods'
     id = Column(Integer, primary_key=True)
     name = Column(String(500))
     period_from = Column(DateTime(), nullable=False, default=func.now())
