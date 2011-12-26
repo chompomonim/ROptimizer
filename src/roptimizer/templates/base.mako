@@ -8,16 +8,10 @@
     <script encoding="utf-8" src="${request.static_url('roptimizer:static/js/scripts.js')}" type="text/javascript"></script>
   </head>
   <body>
-    <header> </header>
-
     <div class="content">
         ${next.body()}
     </div>
 
-    <footer>
-      <div class="inner">
-        &copy; ROptimizer
-      </div>
-    </footer>
+    <footer><b>&reg;</b>ptimizer</footer>
   </body>
 </html>

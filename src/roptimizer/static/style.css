@@ -95,17 +95,31 @@ button.blue:hover {
  */
 
 
-
 /* Footer
 */
 footer {
-    margin-top: -100px;
-    background: #d8eafb;
+    font-size: 26px;
+    font-weight: bold;
+    color: #d8eafb;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
 }
-footer .inner {
-    padding: 0 auto;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background: #d8eafb;
-    border-top: solid #CBE4F8 1px;
+
+footer b {
+    font-size: 32px;
 }
+
+
+/* Content
+*/
+
+.content {
+    position: relative;
+    margin: 0 auto;
+    width: 480px;
+}
+
+   .content .to-spend {
+       margin: 20px auto;
+   }
