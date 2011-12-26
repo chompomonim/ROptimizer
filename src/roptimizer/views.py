@@ -13,7 +13,7 @@ def home_view(request):
         return {'page': 'home'}
     else:
         request.session['admin'] = True
-        return HTTPFound(location=route_url('list', request))
+        return HTTPFound(location=route_url('app', request))
     return {'page': 'home'}
 
 def about_view(request):
