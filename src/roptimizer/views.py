@@ -27,17 +27,9 @@ def app_view(request):
 
     dbsession = DBSession()
     period = dbsession.query(Period).first()
-    expenses = period.get_expenses()
-    incomes = dbsession.query(Income).all()
-
-    def to_spend(incomes, expenses):
-        total_income = sum([income.amount for income in incomes])
-        return total_income - expenses
-
-    to_spend = to_spend(incomes, expenses)
+    to_spend = period.to_spend()
+    money_left = period.money_left()
 
     return {'period': period,
-            'expenses': expenses,
-            'incomes': incomes,
+            'money_left': money_left,
             'to_spend': to_spend}
-

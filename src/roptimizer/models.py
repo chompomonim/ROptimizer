@@ -39,11 +39,31 @@ class Period(Base):
         return DBSession().query(cls).filter_by(name=name).one()
 
     def get_expenses(self):
-        """ Getting sum of all expances in this period. """
+        """Getting sum of all expances in this period."""
         dbsession = DBSession()
-        periodic_expenses = sum([expense.amount for expense in dbsession.query(PeriodicExpense).filter(PeriodicExpense.period_id==self.id).all()])
-        expenses = sum([expense.amount for expense in dbsession.query(Expense).filter(Expense.period_id==self.id).all()])
+        periodic_expenses = sum([expense.amount for expense in dbsession.query(PeriodicExpense).\
+                                     filter(PeriodicExpense.period_id==self.id).all()])
+        expenses = sum([expense.amount for expense in dbsession.query(Expense).\
+                            filter(Expense.period_id==self.id).all()])
         return expenses + periodic_expenses
+
+    def get_incomes(self):
+        """Getting sum of all incomes in this period."""
+        dbsession = DBSession()
+        return sum([income.amount for income in dbsession.query(Income).\
+                        filter(Income.period_id==self.id).all()])
+
+    def money_left(self):
+        """Money left to spand until end of period."""
+        return self.get_incomes() - self.get_expenses()
+
+    def to_spend(self):
+        """Money left to spand today."""
+        return self.money_left()/self.period()
+
+    def period(self):
+        """Get length of period."""
+        return  (self.end - self.start).days
 
 
 class PeriodicExpense(Base):
