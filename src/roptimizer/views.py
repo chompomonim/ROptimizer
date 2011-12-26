@@ -5,8 +5,10 @@ from pyramid.renderers import render
 from roptimizer.models import DBSession, Period, Income
 from roptimizer.helpers import validateEmail
 
-ADMIN_PASSWORD = 'gaugau'
+ADMIN_PASSWORD = 'asdasd'
 
+
+### VIEWS ###
 def home_view(request):
     password = request.POST.get('password', None)
     if password != ADMIN_PASSWORD:
