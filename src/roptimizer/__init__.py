@@ -4,7 +4,6 @@ from pyramid.session import UnencryptedCookieSessionFactoryConfig
 from sqlalchemy import engine_from_config
 
 from roptimizer.models import initialize_sql
-from roptimizer.models import User
 
 from pyramid.decorator import reify
 from pyramid.request import Request

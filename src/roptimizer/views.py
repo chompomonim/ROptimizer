@@ -2,9 +2,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.url import route_url
 from pyramid.renderers import render
 
-from roptimizer.models import DBSession, User
+from roptimizer.models import DBSession
 from roptimizer.helpers import validateEmail
-from roptimizer.mailing import send_email
 
 ADMIN_PASSWORD = 'gaugau'
 

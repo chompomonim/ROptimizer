@@ -43,7 +43,7 @@ class Period(Base):
 def populate():
     session = DBSession()
     today = datetime.datetime.utcnow
-    default = Period('Default', today, today+30)
+    default = Period('Default', today, today)
     session.flush()
     transaction.commit()
 
