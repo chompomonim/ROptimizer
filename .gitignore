@@ -20,3 +20,5 @@ performance.log
 *.swp
 var/log/*
 *.pt.py
+*#
+.#*
