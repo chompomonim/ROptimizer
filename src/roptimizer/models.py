@@ -4,16 +4,15 @@ import datetime
 
 from pyramid.renderers import render
 from pyramid.request import Request
+
 from sqlalchemy import Column
 from sqlalchemy import Integer, Float, ForeignKey
-
 from sqlalchemy.types import Boolean
 from sqlalchemy.types import String
 from sqlalchemy.types import DateTime
 from sqlalchemy.sql.expression import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import declarative_base
-
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 
@@ -27,26 +26,64 @@ class Period(Base):
     __tablename__ = 'periods'
     id = Column(Integer, primary_key=True)
     name = Column(String(500))
-    period_from = Column(DateTime(), nullable=False, default=func.now())
-    period_to = Column(DateTime(), nullable=False, default=func.now())
+    start = Column(DateTime(), nullable=False, default=func.now())
+    end = Column(DateTime(), nullable=False, default=func.now())
 
-    def __init__(self, name, period_from, period_to):
+    def __init__(self, name, start, end):
         self.name = name
-        self.period_from = period_from
-        self.period_to = period_to
+        self.start = start
+        self.end = end
 
     @classmethod
     def get(cls, name):
         return DBSession().query(cls).filter_by(name=name).one()
 
+    def get_expenses(self):
+        """ Getting sum of all expances in this period. """
+        dbsession = DBSession()
+        periodic_expenses = sum([expense.amount for expense in dbsession.query(PeriodicExpense).filter(PeriodicExpense.period_id==self.id).all()])
+        expenses = sum([expense.amount for expense in dbsession.query(Expense).filter(Expense.period_id==self.id).all()])
+        return expenses + periodic_expenses
 
-class PeriodicExpences(Base):
-    """Some default expencies for current period."""
-    __tablename__ = "periodic_expences"
+
+class PeriodicExpense(Base):
+    """Some default expenses for current period."""
+    __tablename__ = "periodic_expenses"
     id = Column(Integer, primary_key=True)
     name = Column(String(500))
-    amount = Column(Float(precision=2, lenght=6), nullable=False)
-    period_id = Column(Integer, ForeignKey('periods.id'), nullable=False)
+    amount = Column(Float(), nullable=False)
+    period_id = Column(Integer, ForeignKey('periods.id'), nullable=False, default=1)
+
+    def __init__(self, name, amount):
+        self.name = name
+        self.amount = amount
+
+
+class Expense(Base):
+    """Expenses maded in current period (with dates)."""
+    __tablename__ = "expenses"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(500))
+    amount = Column(Float(), nullable=False)
+    date = Column(DateTime(), nullable=False, default=func.now())
+    period_id = Column(Integer, ForeignKey('periods.id'), nullable=False, default=1)
+
+    def __init__(self, name, amount):
+        self.name = name
+        self.amount = amount
+
+
+class Income(Base):
+    """Incomes in current period."""
+    __tablename__ = "incomes"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(500))
+    amount = Column(Float(), nullable=False)
+    period_id = Column(Integer, ForeignKey('periods.id'), nullable=False, default=1)
+
+    def __init__(self, name, amount):
+        self.name = name
+        self.amount = amount
 
 
 def populate():
@@ -54,9 +91,23 @@ def populate():
     today = datetime.datetime.utcnow()
     default = Period('Default', today, today)
     session.add(default)
+
+    #Default expences
+    apartment = PeriodicExpense('Apartment rent', 300)
+    session.add(apartment)
+
+    #Incomes
+    salary = Income('Salary', 1000.00)
+    session.add(salary)
+
+    #Expences
+    pizza = Expense('Pizza with team', 20)
+    ticket = Expense('Bus ticket', 5)
+    session.add(pizza)
+    session.add(ticket)
+
     session.flush()
     transaction.commit()
-
 
 def initialize_sql(engine):
     DBSession.configure(bind=engine)
