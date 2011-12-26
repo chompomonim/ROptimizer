@@ -51,8 +51,9 @@ class PeriodicExpences(Base):
 
 def populate():
     session = DBSession()
-    today = datetime.datetime.utcnow
+    today = datetime.datetime.utcnow()
     default = Period('Default', today, today)
+    session.add(default)
     session.flush()
     transaction.commit()
 
