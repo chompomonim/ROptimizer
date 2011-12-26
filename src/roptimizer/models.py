@@ -5,7 +5,7 @@ import datetime
 from pyramid.renderers import render
 from pyramid.request import Request
 from sqlalchemy import Column
-from sqlalchemy import Integer
+from sqlalchemy import Integer, Float, ForeignKey
 
 from sqlalchemy.types import Boolean
 from sqlalchemy.types import String
@@ -38,6 +38,15 @@ class Period(Base):
     @classmethod
     def get(cls, name):
         return DBSession().query(cls).filter_by(name=name).one()
+
+
+class PeriodicExpences(Base):
+    """Some default expencies for current period."""
+    __tablename__ = "periodic_expences"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(500))
+    amount = Column(Float(precision=2, lenght=6), nullable=False)
+    period_id = Column(Integer, ForeignKey('periods.id'), nullable=False)
 
 
 def populate():
