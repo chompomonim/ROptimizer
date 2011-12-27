@@ -24,5 +24,11 @@ def main(global_config, **settings):
                      view_renderer='about.mako')
     config.add_route('app', '/app', view='roptimizer.views.app_view',
                      view_renderer='app.mako')
+    config.add_route('settings', '/settings', view='roptimizer.views.settings_view',
+                     view_renderer='settings.mako')
+    config.add_route('spend', '/spend', view='roptimizer.views.spend_view',
+                     view_renderer='spend.mako')
+    config.add_route('add_spending', '/added', view='roptimizer.views.add_spending',
+                     view_renderer='json')
 
     return config.make_wsgi_app()
