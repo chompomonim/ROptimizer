@@ -4,8 +4,10 @@
 
 %if money_left > 0:
 <div class="to-spend">
-  <h1>To spend today: $${to_spend}</h1>
+  <h1>To spend today: $${left_today}</h1>
+  <div>Spent today: $${spent_today}</div>
   <div>Money left: $${money_left}</div>
+  <div>Average per day: $${to_spend}</div>
   <div>Days left: ${days_left}
 </div>
 

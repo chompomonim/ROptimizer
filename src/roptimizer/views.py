@@ -36,16 +36,21 @@ def about_view(request):
 
 def app_view(request):
     authorization(request)
+    today = datetime.date.today()
     dbsession = DBSession()
     period = dbsession.query(Period).first()
     if not period:
         return HTTPFound(location=route_url('settings', request))
 
-    to_spend = period.to_spend()
+    to_spend = period.to_spend(today)
+    spent_today = period.get_expenses(today)
+    left_today = period.to_spend(today) - spent_today
     money_left = period.money_left()
     days_left = (period.end-datetime.datetime.utcnow()).days
 
     return {'period': period,
+            'left_today': left_today,
+            'spent_today': spent_today,
             'money_left': money_left,
             'to_spend': to_spend,
             'days_left': days_left}
@@ -77,7 +82,7 @@ def add_spending(request):
 
         #TODO Add amount validation.
 
-        expense = Expense(name, int(amount))
+        expense = Expense(name, float(amount))
         dbsession.add(expense)
 
         q = {'period': 1}
@@ -108,7 +113,7 @@ def add_income(request):
     if 'amount' and 'name' in request.POST:
         amount = request.POST['amount']
         name = request.POST['name']
-        income = Income(name, int(amount))
+        income = Income(name, float(amount))
         dbsession.add(income)
         return HTTPFound(location=route_url('settings', request))
 
@@ -119,7 +124,7 @@ def add_periodic_expense(request):
     if 'amount' and 'name' in request.POST:
         amount = request.POST['amount']
         name = request.POST['name']
-        expense = PeriodicExpense(name, int(amount))
+        expense = PeriodicExpense(name, float(amount))
         dbsession.add(expense)
         return HTTPFound(location=route_url('settings', request))
 
@@ -129,7 +134,7 @@ def add_period(request):
     dbsession = DBSession()
     if 'period' in request.POST:
         period_name = request.POST['period']
-        today = datetime.datetime.utcnow()
+        today = datetime.date.today()
         month = datetime.timedelta(days=30)
         period = Period(period_name, today, today+month)
         dbsession.add(period)

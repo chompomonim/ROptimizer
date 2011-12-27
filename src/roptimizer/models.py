@@ -67,11 +67,17 @@ class Period(Base):
 
 
     def money_left(self):
-        """Money left to spand until end of period."""
+        """Money left to spend until end of period."""
         return self.get_incomes() - self.get_expenses()
 
-    def to_spend(self):
-        """Money left to spand today."""
+    def to_spend(self, date=None):
+        """Money left to spend average or given date."""
+        if date:
+            #convert date to datetime
+            date = datetime.datetime.combine(date, datetime.time())
+            money_left = self.money_left()+self.get_expenses(date)
+            days_left = (self.end-date).days
+            return round(money_left/days_left, 2)
         return round(self.money_left()/self.period(), 2)
 
     def period(self):
