@@ -1,3 +1,10 @@
+0.2
+---
+
+-  Created almost working prototype.
+   Now you can add period, expenses, income and app will say you how much you can spend today.
+
+
 0.1
 ---
 

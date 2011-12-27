@@ -21,7 +21,7 @@ if sys.version_info[:3] < (2,5,0):
     requires.append('pysqlite')
 
 setup(name='roptimizer',
-      version='0.1',
+      version='0.2',
       description='roptimizer',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
