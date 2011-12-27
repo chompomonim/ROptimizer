@@ -26,8 +26,8 @@ class Period(Base):
     __tablename__ = 'periods'
     id = Column(Integer, primary_key=True)
     name = Column(String(500))
-    start = Column(DateTime(), nullable=False, default=func.now())
-    end = Column(DateTime(), nullable=False, default=func.now())
+    start = Column(DateTime(), nullable=False, default=func.current_date())
+    end = Column(DateTime(), nullable=False, default=func.current_date())
 
     def __init__(self, name, start, end):
         self.name = name
@@ -86,7 +86,7 @@ class Expense(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(500))
     amount = Column(Float(), nullable=False)
-    date = Column(DateTime(), nullable=False, default=func.now())
+    date = Column(DateTime(), nullable=False, default=func.current_date())
     period_id = Column(Integer, ForeignKey('periods.id'), nullable=False, default=1)
 
     def __init__(self, name, amount):
