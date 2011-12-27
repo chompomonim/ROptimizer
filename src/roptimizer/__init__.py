@@ -30,5 +30,7 @@ def main(global_config, **settings):
                      view_renderer='spend.mako')
     config.add_route('add_spending', '/added', view='roptimizer.views.add_spending',
                      view_renderer='json')
+    config.add_route('add_period', '/add_period', view='roptimizer.views.add_period',
+                     view_renderer='json')
 
     return config.make_wsgi_app()

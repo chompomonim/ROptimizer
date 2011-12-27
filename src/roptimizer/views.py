@@ -47,7 +47,10 @@ def app_view(request):
             'days_left': days_left}
 
 def settings_view(request):
-    return {}
+    authorization(request)
+    dbsession = DBSession()
+    periods = dbsession.query(Period).all()
+    return {'periods': periods}
 
 def spend_view(request):
     authorization(request)
@@ -76,3 +79,15 @@ def add_spending(request):
         return HTTPFound(location=route_url('spend', request, _query=q))
 
     return {'error':'Please enter spending name and spended amount.'}
+
+def add_period(request):
+    dbsession = DBSession()
+    if 'period' in request.POST:
+        period_name = request.POST['period']
+        today = datetime.datetime.utcnow()
+        month = datetime.timedelta(days=30)
+        period = Period(period_name, today, today+month)
+        dbsession.add(period)
+        return HTTPFound(location=route_url('settings', request))
+
+    return {'error':'Please enter period name.'}
