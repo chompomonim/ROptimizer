@@ -7,6 +7,9 @@
   <li>${expense.name} - $${expense.amount}</li>
   %endfor
 </ul>
+<div>
+  <b>Total:</b> ${expenses_sum}
+</div>
 
 <form id="spent-form" method="post" action="${request.route_url('add_spending')}">
   <div>

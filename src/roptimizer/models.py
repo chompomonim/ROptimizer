@@ -38,9 +38,21 @@ class Period(Base):
     def get(cls, name):
         return DBSession().query(cls).filter_by(name=name).one()
 
-    def get_expenses(self):
-        """Getting sum of all expances in this period."""
+    @classmethod
+    def get_by_id(cls, period_id):
+        return DBSession().query(cls).filter_by(id=int(period_id)).one()
+
+    def get_expenses(self, date=None):
+        """Getting sum of all expanses in this period.
+           If date is not None, then return sum of all expanses during requested day.
+           """
         dbsession = DBSession()
+        if date:
+            expenses = dbsession.query(Expense).\
+                            filter(Expense.period_id==self.id).\
+                            filter(Expense.date==date).all()
+            return sum([expense.amount for expense in expenses])
+
         periodic_expenses = sum([expense.amount for expense in dbsession.query(PeriodicExpense).\
                                      filter(PeriodicExpense.period_id==self.id).all()])
         expenses = sum([expense.amount for expense in dbsession.query(Expense).\

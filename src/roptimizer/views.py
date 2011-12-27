@@ -54,11 +54,18 @@ def app_view(request):
 ### Spendings ###
 def spend_view(request):
     authorization(request)
+    today = datetime.date.today()
     period_id = request.GET.get('period', None)
     if period_id:
         dbsession = DBSession()
-        expenses = dbsession.query(Expense).filter(Expense.period_id==period_id).all()
-        return {'expenses': expenses}
+        expenses = dbsession.query(Expense).\
+            filter(Expense.period_id==int(period_id)).\
+            filter(Expense.date==today).all()
+
+        period = Period.get_by_id(period_id)
+        expenses_sum = period.get_expenses(today)
+        return {'expenses': expenses,
+                'expenses_sum': expenses_sum}
 
     return HTTPFound(location=route_url('app', request))
 
