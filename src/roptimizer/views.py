@@ -73,8 +73,6 @@ def add_spending(request):
         expense = Expense(name, int(amount))
         dbsession.add(expense)
 
-        #return {'amount': amount,
-        #        'name': name}
         q = {'period': 1}
         return HTTPFound(location=route_url('spend', request, _query=q))
 
