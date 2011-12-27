@@ -89,9 +89,11 @@ class Expense(Base):
     date = Column(DateTime(), nullable=False, default=func.current_date())
     period_id = Column(Integer, ForeignKey('periods.id'), nullable=False, default=1)
 
-    def __init__(self, name, amount):
+    def __init__(self, name, amount, date=None):
         self.name = name
         self.amount = amount
+        if date:
+            self.date = date
 
 
 class Income(Base):
@@ -109,8 +111,10 @@ class Income(Base):
 
 def populate():
     session = DBSession()
-    today = datetime.datetime.utcnow()
+    day = datetime.timedelta(days=1)
     month = datetime.timedelta(days=30)
+    today = datetime.date.today()
+    tomorrow = today+day
     default = Period('Default', today, today+month)
     session.add(default)
 
@@ -124,7 +128,7 @@ def populate():
 
     #Expences
     pizza = Expense('Pizza with team', 20)
-    ticket = Expense('Bus ticket', 5)
+    ticket = Expense('Bus ticket', 5, tomorrow)
     session.add(pizza)
     session.add(ticket)
 
