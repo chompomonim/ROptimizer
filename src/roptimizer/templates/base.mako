@@ -12,6 +12,10 @@
         ${next.body()}
     </div>
 
-    <footer><b>&reg;</b>ptimizer</footer>
+    <footer>
+      <b>&reg;</b>ptimizer 
+      <a class="menu" href="${request.route_url('app')}">Home</a>
+      <a class="menu" href="${request.route_url('settings')}">Settings</a>
+</footer>
   </body>
 </html>

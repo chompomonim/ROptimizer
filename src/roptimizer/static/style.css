@@ -68,6 +68,10 @@ a.button {
     padding-bottom:5px;
 }
 
+button.small {
+    font: 14px/26px arial;
+}
+
 button:hover,
 .button:hover {
     border-top-color: rgba(180, 180, 180, 0.4);
@@ -106,10 +110,15 @@ footer {
     left: 10px;
 }
 
-footer b {
-    font-size: 32px;
-}
+    footer b {
+        font-size: 32px;
+    }
 
+    footer a.menu {
+	text-decoration: none;
+	font-size: 12px;
+	margin-left: 10px;
+    }
 
 /* Content
 */
@@ -122,4 +131,8 @@ footer b {
 
    .content .to-spend {
        margin: 20px auto;
+   }
+
+   .content .center {
+       margin: 10px auto;
    }
