@@ -53,13 +53,14 @@ class Period(Base):
         return sum([income.amount for income in dbsession.query(Income).\
                         filter(Income.period_id==self.id).all()])
 
+
     def money_left(self):
         """Money left to spand until end of period."""
         return self.get_incomes() - self.get_expenses()
 
     def to_spend(self):
         """Money left to spand today."""
-        return self.money_left()/self.period()
+        return round(self.money_left()/self.period(), 2)
 
     def period(self):
         """Get length of period."""
