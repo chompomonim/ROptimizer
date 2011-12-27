@@ -30,6 +30,10 @@ def main(global_config, **settings):
                      view_renderer='spend.mako')
     config.add_route('add_spending', '/added', view='roptimizer.views.add_spending',
                      view_renderer='json')
+    config.add_route('add_income', '/income_added', view='roptimizer.views.add_income',
+                     view_renderer='json')
+    config.add_route('add_periodic_expense', '/expense_added', view='roptimizer.views.add_periodic_expense',
+                     view_renderer='json')
     config.add_route('add_period', '/add_period', view='roptimizer.views.add_period',
                      view_renderer='json')
 
