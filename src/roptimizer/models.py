@@ -127,6 +127,7 @@ def populate():
     month = datetime.timedelta(days=30)
     today = datetime.date.today()
     tomorrow = today+day
+    """
     default = Period('Default', today, today+month)
     session.add(default)
 
@@ -143,7 +144,7 @@ def populate():
     ticket = Expense('Bus ticket', 5, tomorrow)
     session.add(pizza)
     session.add(ticket)
-
+    """
     session.flush()
     transaction.commit()
 
