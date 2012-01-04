@@ -43,6 +43,9 @@ setup(name='roptimizer',
       entry_points = """\
       [paste.app_factory]
       main = roptimizer:main
+
+      [paste.app_install]
+      main = paste.script.appinstall:Installer
       """,
       paster_plugins=['pyramid'],
       )

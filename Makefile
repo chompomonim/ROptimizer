@@ -72,6 +72,9 @@ devpsql:
 reset_devdb: instance/var/run/.s.PGSQL.${PGPORT}
 	psql -h ${PWD}/instance/var/run/ -d development -c "drop schema public cascade"
 	psql -h ${PWD}/instance/var/run/ -d development -c "create schema public"
+
+	bin/paster setup-app development.ini#roptimizer
+
 	rm -rf ${PWD}/instance/uploads
 
 .PHONY: instance

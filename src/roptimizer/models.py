@@ -127,38 +127,9 @@ class Income(Base):
         self.amount = amount
 
 
-def populate():
-    session = DBSession()
-    day = datetime.timedelta(days=1)
-    month = datetime.timedelta(days=30)
-    today = datetime.date.today()
-    tomorrow = today+day
-    """
-    default = Period('Default', today, today+month)
-    session.add(default)
-
-    #Default expences
-    apartment = PeriodicExpense('Apartment rent', 300)
-    session.add(apartment)
-
-    #Incomes
-    salary = Income('Salary', 1000.00)
-    session.add(salary)
-
-    #Expences
-    pizza = Expense('Pizza with team', 20)
-    ticket = Expense('Bus ticket', 5, tomorrow)
-    session.add(pizza)
-    session.add(ticket)
-    """
-    session.flush()
-    transaction.commit()
-
 def initialize_sql(engine):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
-    try:
-        populate()
-    except IntegrityError:
-        DBSession.rollback()
+
+    # Add some code here
