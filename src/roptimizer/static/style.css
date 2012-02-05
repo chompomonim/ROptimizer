@@ -4,139 +4,59 @@
     font-family: arial, helvetica, tahoma, sans;
 }
 
-html, body {
-    height: 100%;
-}
-
-/* Common
- */
-.inner {
-    margin: 0 auto;
-    width: 980px;
-}
-
-img {
-    border: 0;
-}
-
-h3 span,
-h2 span {
-    font-weight: normal;
-}
-
-h3 {
-    font-size: 20px;
-    padding-top: 30px;
-    text-transform: uppercase;
-}
-
-h4 {
-    font-size: 26px;
-    font-weight: normal;
-}
-
-li {
-    margin-left: 20px;
-}
-
-a {
-    color: #2391b9;
-}
-a:hover {
-    color: #36A9D2;
-}
-
-button,
-.button {
-    color: #fff;
-    font: 18px/37px arial;
-    padding: 0 13px;
-    border-color: rgba(0, 0, 0, 0.2);
-    border-top-color: rgba(255, 255, 255, 0.4);
-    border-bottom-color: rgba(0, 0, 0, 0.2);
-    border-style: solid;
-    border-width: 1px;
-    border-bottom-style: groove;
-    border-top-style: groove;
-    border-bottom-width: 2px;
-    border-top-width: 2px;
-    background: #37af51;
-    background-image: url('images/button_back.png');
-    background-position: center;
-}
-
-a.button {
-    text-decoration: none;
-    font-size: 16px;
-    padding-top:5px;
-    padding-bottom:5px;
-}
-
-button.small {
-    font: 14px/26px arial;
-}
-
-button:hover,
-.button:hover {
-    border-top-color: rgba(180, 180, 180, 0.4);
-    border-bottom-color: rgba(20, 20, 20, 0.2);
-    background: #178f31;
-    background-image: url('images/button_back.png');
-    background-position: center;
-    color: #fff;
-}
-button.orange {
-    background-color: #e95d00;
-}
-button.orange:hover {
-    background-color: #d94500;
-}
-button.blue {
-    background-color: #2f94aa;
-}
-button.blue:hover {
-    background-color: #2d8399;
-}
-
-
 /* Header
  */
 
 
 /* Footer
 */
-footer {
-    font-size: 26px;
-    font-weight: bold;
-    color: #d8eafb;
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
+
+.ui-footer {
+    font-size: 16px;
 }
 
-    footer b {
-        font-size: 32px;
+    .ui-footer .ui-btn {
+	margin-bottom: 2px;
     }
 
-    footer a.menu {
-	text-decoration: none;
-	font-size: 12px;
+    .ui-footer b {
 	margin-left: 10px;
     }
+
 
 /* Content
 */
 
-.content {
-    position: relative;
-    margin: 0 auto;
-    width: 480px;
+#spent-form input {
+    width: 250px;
+    background-color: #eee;
 }
 
-   .content .to-spend {
-       margin: 20px auto;
-   }
+#spent-form #money {
+    width: 235px;
+    margin-top: 5px;
+    padding-left: 20px;
+    background: url("images/euro.png") no-repeat scroll 3px center #eee;
+}
 
-   .content .center {
-       margin: 10px auto;
-   }
+.center {
+    margin: 10px auto;
+}
+
+.to-spend {
+    width: 230px;
+}
+    .to-spend .counter {
+	background-color: #ccc;
+	border-radius: 10px;
+	padding: 10px;
+    }
+    .to-spend .more-info {
+	margin-top: 15px;
+	margin-bottom: 20px;
+	color: #999;
+    }
+    .to-spend h1 {
+	font-size: 42px;
+	text-shadow: 2px 2px #999;
+    }
