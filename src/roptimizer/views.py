@@ -13,14 +13,9 @@ from roptimizer.helpers import validateEmail
 
 ADMIN_PASSWORD = 'asdasd'
 
-def authorization(request):
-    if not request.session.get('admin'):
-        return HTTPFound(location=route_url('home', request))
-    return True
-
 ### VIEWS ###
 def home_view(request):
-    if authorization(request):
+    if request.session.get('admin'):
         return HTTPFound(location=route_url('app', request))
 
     password = request.POST.get('password', None)
@@ -35,7 +30,8 @@ def about_view(request):
     return {'page': 'about'}
 
 def app_view(request):
-    authorization(request)
+    if not request.session.get('admin'):
+        return HTTPFound(location=route_url('home', request))
     today = datetime.date.today()
     dbsession = DBSession()
     period = dbsession.query(Period).first()
@@ -58,7 +54,8 @@ def app_view(request):
 
 ### Spendings ###
 def spend_view(request):
-    authorization(request)
+    if not request.session.get('admin'):
+        return HTTPFound(location=route_url('home', request))
     today = datetime.date.today()
     period_id = request.GET.get('period', None)
     if period_id:
@@ -93,7 +90,8 @@ def add_spending(request):
 
 ### Settings ###
 def settings_view(request):
-    authorization(request)
+    if not request.session.get('admin'):
+        return HTTPFound(location=route_url('home', request))
     dbsession = DBSession()
     periods = dbsession.query(Period).all()
     #TODO In future we will implement possibility to choose in which period we are.
