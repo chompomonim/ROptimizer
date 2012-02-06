@@ -27,12 +27,16 @@
 /* Content
 */
 
-#spent-form input {
+#spent-form input,
+#income-expense input,
+#income-form input {
     width: 250px;
     background-color: #eee;
 }
 
-#spent-form #money {
+#spent-form .money,
+#income-expense .money,
+#income-form .money {
     width: 235px;
     margin-top: 5px;
     padding-left: 20px;
@@ -41,6 +45,7 @@
 
 .center {
     margin: 10px auto;
+    width: 480px;
 }
 
 .to-spend {

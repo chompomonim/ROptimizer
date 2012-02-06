@@ -11,7 +11,7 @@
 <form id="spent-form" method="post" action="${request.route_url('add_spending')}">
   <div data-role="fieldcontain">
     <input type="text" name="name" placeholder="What you spent money for?" />
-    <input type="text" name="amount" placeholder="How much?" maxlength="8" id="money" />
+    <input type="text" name="amount" placeholder="How much?" maxlength="8" class="money" />
   </div>
   <button name="submit" type="submit" data-icon="plus" data-inline="true">Add to spends</button>
 </form>
