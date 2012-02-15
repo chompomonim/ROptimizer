@@ -139,3 +139,9 @@ def add_period(request):
         return HTTPFound(location=route_url('settings', request))
 
     return {'error':'Please enter period name.'}
+
+def active_period(request):
+    if 'period' in request.POST:
+        period = Period.get_by_id(request.POST['period'])
+        period.make_active()
+    return {'error':'Labas'}

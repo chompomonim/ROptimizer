@@ -28,6 +28,7 @@ class Period(Base):
     name = Column(String(500))
     start = Column(DateTime(), nullable=False, default=func.current_date())
     end = Column(DateTime(), nullable=False, default=func.current_date())
+    active = Column(Boolean(), default=False)
 
     def __init__(self, name, start, end):
         self.name = name
@@ -41,6 +42,16 @@ class Period(Base):
     @classmethod
     def get_by_id(cls, period_id):
         return DBSession().query(cls).filter_by(id=int(period_id)).one()
+
+    def make_active(self):
+        """ Make new period as active, old as inactive """
+        try:
+            current_active = DBSession().query(Period).filter_by(active=True).one()
+            current_active.active = False
+        except:
+            pass
+
+        self.active = True
 
     def get_expenses(self, date=None):
         """Getting sum of all expanses in this period.
@@ -64,7 +75,6 @@ class Period(Base):
         dbsession = DBSession()
         return sum([income.amount for income in dbsession.query(Income).\
                         filter(Income.period_id==self.id).all()])
-
 
     def money_left(self):
         """Money left to spend until end of period."""

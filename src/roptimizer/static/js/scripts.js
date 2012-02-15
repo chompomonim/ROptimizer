@@ -1,5 +1,17 @@
 $(function() {
 
+    $(':radio').click(function () {
+	var dataString = 'period=' + $(this).val();
+	$.ajax({
+	    type: "POST",
+	    url: "/active_period",
+	    data: dataString,
+	    success: function() {
+
+	    }
+	});
+    });
+
     $('#show-incomes').click(function() {
 	if ($('#incomes').css('display') === 'none') {
 	    $('#incomes').show();

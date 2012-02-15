@@ -36,5 +36,7 @@ def main(global_config, **settings):
                      view_renderer='json')
     config.add_route('add_period', '/add_period', view='roptimizer.views.add_period',
                      view_renderer='json')
+    config.add_route('active_period', '/active_period', view='roptimizer.views.active_period',
+                     view_renderer='json')
 
     return config.make_wsgi_app()

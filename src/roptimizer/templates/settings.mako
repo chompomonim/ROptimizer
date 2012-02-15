@@ -44,12 +44,21 @@
 
   <div data-role="collapsible">
     <h3>Periods:</h3>
-    <ol data-role="listview" data-inset="true">
-      %for period in periods:
-      <li>${period.name}</li>
-      %endfor
-    </ol>
-
+    <form id="active-period">
+      <ol data-role="listview" data-inset="true">
+	%for period in periods:
+	<input
+	   type="radio"
+	   name="period"
+	   value="${period.id}"
+	   %if period.active:
+	   checked
+	   %endif
+	   />
+	<label for="${period.id}">${period.name}</label>
+	%endfor
+      </ol>
+    </form>
     <form id="add-period" method="post" action="${request.route_url('add_period')}">
       <input type="text" name="period" placeholder="Add new period" />
       <button name="submit" type="submit" class="small">Add</button>
